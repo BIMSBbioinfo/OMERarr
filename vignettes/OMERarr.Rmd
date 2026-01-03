@@ -1,0 +1,46 @@
+
+---
+title: "`OMERarr`"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+package: "`r BiocStyle::pkg_ver('OMERarr')`"
+author: 
+  - name: Artur Manukyan
+output:
+  BiocStyle::html_document
+vignette: |
+  %\VignetteIndexEntry{OMERarr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r load-libs}
+library(OMERarr)
+library(Rarr)
+```
+
+# Introduction
+
+# Installation
+
+You can install `r Biocpkg("ImageArray")` from Bioconductor with:
+
+```{r install-BiocManager, eval = FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE)) {
+    install.packages("BiocManager")
+}
+BiocManager::install("OMERarr")
+```
+
+# Usage
+
+```{r install-BiocManager, eval = FALSE}
+chick <- "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.3/9836842.zarr/"
+chich_array <- read_zarr_array(zarr_array_path = file.path(chick, "3"))
+chich_meta <- read_zarr_attributes(zarr_path = chick, s3_client = Rarr:::.create_s3_client(chick))
+```
+
+# Session info
+
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```

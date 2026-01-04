@@ -1,10 +1,26 @@
 Package: OMERarr
 Type: Package
-Title: What the Package Does (Short Line)
+Title: Reading, writing and validating OME-Zarr (meta)data
 Version: 0.99.1
 Date: 2026-01-03
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line).
-License: What license is it under?
+Authors@R: 
+	person("Artür", "Manukyan", 
+		     role=c("aut", "cre", "fnd"),
+	       email="artur-man@hotmail.com", 
+	       comment=c(ORCID="0000-0002-0441-9517"))
+Description: An R package for reading, writing and validating OME-Zarr 
+             (meta)data (based on ome-zarr-py and ome-zarr-models.py)
+License: MIT + file LICENSE
 RoxygenNote: 7.3.3
+biocViews: Software, Visualization
+Depends: 
+  EBImage
+Imports: 
+  methods, 
+  Rarr
+Suggests: 
+  testthat (>= 3.0.0),
+  knitr,
+  ggplot2,
+  BiocFileCache,
+  BiocStyle

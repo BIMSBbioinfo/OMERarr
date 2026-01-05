@@ -17,7 +17,9 @@ Depends:
   EBImage
 Imports: 
   methods, 
-  Rarr
+  S4Vectors,
+  Rarr,
+  DelayedArray
 Suggests: 
   testthat (>= 3.0.0),
   knitr,

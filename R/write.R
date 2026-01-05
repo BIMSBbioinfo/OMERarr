@@ -155,10 +155,6 @@ write_image <- function(image,
       axes <- c("y", "x")
       message(sprintf("Auto using axes %s for 2D data", 
                       paste(axes, collapse = ", ")))
-    } else if (!is.null(ndim) && ndim == 3) {
-      axes <- c("c", "y", "x")
-      message(sprintf("Auto using axes %s for 3D data", 
-                      paste(axes, collapse = ", ")))
     } else if (!is.null(ndim) && ndim == 5) {
       axes <- c("t", "c", "z", "y", "x")
       message(sprintf("Auto using axes %s for 5D data", 

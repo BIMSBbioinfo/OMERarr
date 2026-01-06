@@ -90,3 +90,5 @@ jobs:
         shell: bash
         run: |
           which ome-zarr-conformance
+          Rscript inst/scripts/test_cli.R --name Alice --number 42 --flag
+          

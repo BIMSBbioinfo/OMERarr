@@ -91,7 +91,8 @@ jobs:
         run: |
           options(crayon.enabled = TRUE)
           rcmdcheck::rcmdcheck(
-              args ld_args = c("--no-manual", "--keep-empty-dirs", "--no-resave-data"),
+              args = c("--no-manual", "--no-vignettes", "--timings"),
+              build_args = c("--no-manual", "--keep-empty-dirs", "--no-resave-data"),
               error_on = "error",
               check_dir = "check"
           )

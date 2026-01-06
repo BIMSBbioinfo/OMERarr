@@ -3,6 +3,8 @@
 \name{OMEZarrArray-methods}
 \alias{OMEZarrArray-methods}
 \alias{[[,OMEZarrArray,numeric-method}
+\alias{meta}
+\alias{meta,ImageArray-method}
 \alias{dim,OMEZarrArray-method}
 \alias{type,OMEZarrArray-method}
 \alias{length,OMEZarrArray-method}
@@ -34,10 +36,10 @@ read_image(group, s3_client = NULL)
  }
 }}
 
-\item{meta}{the metadata of the OMEZarrArray object.}
+\item{group}{description}
 
-\item{levels}{levels of the pyramid image, typically a vector of integers
-starting with 1}
+\item{s3_client}{Object created by \code{paws.storage::s3()}. 
+Only required for a file on S3. Leave as NULL for a file on local storage.}
 }
 \value{
 dim of the first level of the OMEZarrArray object

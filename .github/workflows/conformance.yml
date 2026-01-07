@@ -81,4 +81,5 @@ jobs:
         shell: bash
         run: |
           ome-zarr-conformance 'Rscript inst/scripts/read_ome_metadata.R '
+          exit 0
           

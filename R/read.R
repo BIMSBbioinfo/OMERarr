@@ -57,7 +57,7 @@ setMethod("length", signature = "OMEZarrArray", function(x) length(x@levels))
 #' @describeIn OMEZarrArray-methods length of an OMEZarrArray
 #' @export
 #' @returns length of OMEZarrArray object
-setMethod("meta", signature = "OMEZarrArray", function(object) object@meta)
+setMethod("meta", signature = "OMEZarrArray", function(object) meta(object@meta))
 
 #' @describeIn OMEZarrArray-methods OMEZarrArray constructor method
 #'
@@ -71,17 +71,17 @@ setMethod("meta", signature = "OMEZarrArray", function(object) object@meta)
 #' @importFrom Rarr read_zarr_array
 #' @export
 #' @return An OMEZarrArray object
-read_image <- function(group, s3_client = NULL){
+read_image <- function(group){
   
   # read metadata
   meta <- read_ome_metadata(group = group, 
-                            s3_client = s3_client)
+                            s3_client = Rarr:::.create_s3_client(group))
   
   # read levels
-  datasets <- .get_multiscale_datasets(meta) 
-  levels <- lapply(datasets, function(dataset){
-    Rarr::read_zarr_array(zarr_array_path = file.path(group, dataset), 
-                         s3_client = s3_client)
+  levels <- lapply(datasets(meta) , function(dataset){
+    Rarr::ZarrArray(
+      zarr_array_path = file.path(group, dataset)
+    )
   })
   
   # construct class

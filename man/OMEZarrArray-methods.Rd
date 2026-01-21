@@ -22,7 +22,7 @@
 
 \S4method{meta}{OMEZarrArray}(object)
 
-read_image(group, s3_client = NULL)
+read_image(group)
 }
 \arguments{
 \item{x, object}{An OMEZarrArray object}

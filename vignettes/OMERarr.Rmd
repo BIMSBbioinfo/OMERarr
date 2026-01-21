@@ -13,7 +13,8 @@ vignette: |
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r load-libs}
+```{r load-libs}n
+
 # library(OMERarr)
 library(Rarr)
 library(EBImage)
@@ -26,6 +27,7 @@ library(EBImage)
 You can install `r Biocpkg("ImageArray")` from Bioconductor with:
 
 ```{r install-BiocManager, eval = FALSE}
+library(Rarr)
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
     install.packages("BiocManager")
 }
@@ -34,14 +36,19 @@ BiocManager::install("OMERarr")
 
 # Usage
 
+```{r read_temp, eval = FALSE}
+chick <- "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0073A/9798462.zarr"
+# chich_array <- read_zarr_array(zarr_array_path = file.path(chick, "3"))
+chich_meta <- read_zarr_attributes(zarr_path = chick, s3_client = Rarr:::.create_s3_client(chick))
+img_array <- read_image(group = chick, s3_client = Rarr:::.create_s3_client(chick))
+```
+
 Read remote data
 
 ```{r read s3, eval = FALSE}
-chick <- "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.3/9836842.zarr/"
-# chich_array <- read_zarr_array(zarr_array_path = file.path(chick, "3"))
-# chich_meta <- read_zarr_attributes(zarr_path = chick, s3_client = Rarr:::.create_s3_client(chick))
-img_array <- read_image(group = chick, s3_client = Rarr:::.create_s3_client(chick))
+chick <- "https://uk1s3.embassy.ebi.ac.uk/idr/zarr/v0.4/idr0073A/9798462.zarr"
 chick_meta <- read_ome_metadata(group = chick, s3_client = Rarr:::.create_s3_client(chick))
+chick_img <- read_image(group = chick)
 ```
 
 ## Write multiscale image

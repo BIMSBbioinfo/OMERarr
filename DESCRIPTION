@@ -4,7 +4,7 @@ Title: Reading, writing and validating OME-Zarr (meta)data
 Version: 0.99.1
 Date: 2026-01-03
 Authors@R: 
-  person("Artür", "Manukyan",
+  person("Artur", "Manukyan",
          role=c("aut", "cre", "fnd"),
          email="artur-man@hotmail.com",
          comment=c(ORCID="0000-0002-0441-9517"))
@@ -15,7 +15,7 @@ RoxygenNote: 7.3.3
 biocViews: Software, Visualization
 Depends: 
   EBImage
-Imports: 
+Imports:
   methods, 
   S4Vectors,
   Rarr,

@@ -1,21 +1,3 @@
-setMethod("ome_version", 
-          "OMEZarrMeta", 
-          function(object) {
-            object@version
-          })
-
-setMethod("meta", 
-          "OMEZarrMeta", 
-          function(object) {
-            object@listData
-          })
-
-setMethod("datasets", 
-          "OMEZarrMeta", 
-          function(object) {
-            meta(object)$multiscales$datasets[[1]]$path
-          })
-
 read_ome_metadata <- function(group, s3_client = NULL) {
   zarr_meta <- Rarr::read_zarr_attributes(zarr_path = group, 
                                           s3_client = s3_client)
@@ -40,5 +22,5 @@ read_ome_metadata <- function(group, s3_client = NULL) {
 
 #' @noRd
 .get_axes <- function(x) {
-  x$multiscales$axes[[1]]
+  x$multiscales$axes[[1]]$name
 }

@@ -4,8 +4,24 @@ setMethod("show",
           function(object) {
             cat("class:", 
                 class(object), 
-                ome_version(object),
-                # sprintf("(%s)", 
-                #         paste0(.get_axes(meta(object)), collapse=",")), 
+                paste0("(v", ome_version(object), ")"),
                 "\n")
+          })
+
+setMethod("ome_version", 
+          "OMEZarrMeta", 
+          function(object) {
+            object@version
+          })
+
+setMethod("meta", 
+          "OMEZarrMeta", 
+          function(object) {
+            object@listData
+          })
+
+setMethod("datasets", 
+          "OMEZarrMeta", 
+          function(object) {
+            meta(object)$multiscales$datasets[[1]]$path
           })

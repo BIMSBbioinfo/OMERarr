@@ -72,12 +72,12 @@ jobs:
         with:
           python-version: 3.13
           
-      - name: "Install testing framework"
+      - name: "Install ome-zarr conformance"
         shell: bash
         run: |
           pip install git+https://github.com/clbarnes/ome_zarr_conformance.git
           
-      - name: "Run conformance tests"
+      - name: "Run ome-zarr conformance tests"
         shell: bash
         run: |
           ome-zarr-conformance 'Rscript inst/scripts/read_ome_metadata.R '

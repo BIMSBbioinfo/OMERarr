@@ -51,7 +51,8 @@ img_file <- system.file("images", "sample.png", package="EBImage")
 img_array <- readImage(img_file)
 
 # zarr store
-store <- tempfile(fileext = ".zarr")
+unlink(store, recursive = TRUE)
+store <- tempfile(fileext = ".ome.zarr")
 
 # write
 write_image(img_array, 

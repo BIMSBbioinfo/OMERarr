@@ -10,7 +10,7 @@ write_image(
   axes = NULL,
   scalefactor = 2,
   max_layer = 5,
-  format = "v0.4",
+  version = "v0.4",
   storage_options = NULL
 )
 }
@@ -27,7 +27,7 @@ If None, no downsampling will be performed.}
 
 \item{max_layer}{Maximum number of layers in the image pyramid}
 
-\item{format}{OME-ZARR format (v0.4 or v0.5)}
+\item{version}{OME-ZARR format (v0.4 or v0.5)}
 
 \item{storage_options}{a list of storage options for the zarr array 
 (e.g. chunks)}

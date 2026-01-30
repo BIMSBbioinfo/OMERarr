@@ -10,7 +10,7 @@
 #' @param scalefactor Scaler implementation for downsampling the image argument. 
 #' If None, no downsampling will be performed.
 #' @param max_layer Maximum number of layers in the image pyramid
-#' @param format OME-ZARR format (v0.4 or v0.5)
+#' @param version OME-ZARR format (v0.4 or v0.5)
 #' @param storage_options a list of storage options for the zarr array 
 #' (e.g. chunks)
 #'
@@ -24,18 +24,25 @@ write_image <- function(image,
                         axes = NULL,  
                         scalefactor = 2,
                         max_layer = 5,
-                        format = "v0.4", # for now, we can only do zarr v2
+                        version = "v0.4", # for now, we can only do zarr v2
                         storage_options = NULL){
   
   # Generate a downsampled pyramid of images.
-  image_pyramid <- .create_mip(image, format, scalefactor, axes)
+  image_pyramid <- .create_mip(image, version, scalefactor, axes)
   
   # write image
   .write_multiscale_image(image_pyramid = image_pyramid, 
                           group = group, 
                           axes = axes, 
-                          format = format, 
+                          format = version, 
                           storage_options = storage_options)
+  
+  # write ome metadata 
+  write_ome_metadata(group = group, image = image, 
+                     version = version, axes = axes)
+  
+  # return
+  read_image(group = group)
 }
 
 #' .create_mip
@@ -68,7 +75,7 @@ write_image <- function(image,
   }
   
   # validate axes
-  axes <- .get_valid_axes(ndim = length(dim(image)), 
+  axes <- .get_valid_axes(x = image, 
                           axes = axes, 
                           format = format)
   
@@ -90,6 +97,7 @@ write_image <- function(image,
               perm = rev(seq_len(length(axes))))
     }
   }
+  
   image_list
 }
 
@@ -111,9 +119,6 @@ write_image <- function(image,
     create_zarr(store = group, 
                 version = if(format == "v0.4") "v2" else "v3")
   
-  # write ome metadata 
-  write_ome_metadata(group = group)
-  
   # check storage options
   if(!"chunk_dim" %in% names(storage_options))
     stop("'chunk_dim' must be provided in storage_options")
@@ -121,67 +126,15 @@ write_image <- function(image,
   # write multiscale image
   for(i in seq_len(length(image_pyramid))){
     image <- image_pyramid[[i]]
-    dataset_name <- paste0("0", i - 1)
     Rarr::write_zarr_array(
       x = image_pyramid[[i]],
-      zarr_array_path = paste(group, paste0(i), sep = "/"),
+      zarr_array_path = paste(group, paste0(i-1), sep = "/"),
       chunk_dim = .get_scale_chunk_dim(
         chunk_dim = storage_options$chunk_dim,
         dim = dim(image)
       ),
     )
   }
-}
-
-#' .get_valid_axes
-#' 
-#' Get validated axes
-#'
-#' @inheritParams write_image
-#' 
-#' @noRd
-.get_valid_axes <- function(
-    ndim = NULL,
-    axes = NULL,
-    format = "v0.4"
-) {
-  
-  if (!is.null(format) && format %in% c("0.1", "0.2")) {
-    if (!is.null(axes)) {
-      message("axes ignored for version 0.1 or 0.2")
-    }
-    return(NULL)
-  }
-  
-  # We can guess axes for 2D and 5D data
-  if (is.null(axes)) {
-    if (!is.null(ndim) && ndim == 2) {
-      axes <- c("y", "x")
-      message(sprintf("Auto using axes %s for 2D data", 
-                      paste(axes, collapse = ", ")))
-    } else if (!is.null(ndim) && ndim == 5) {
-      axes <- c("t", "c", "z", "y", "x")
-      message(sprintf("Auto using axes %s for 5D data", 
-                      paste(axes, collapse = ", ")))
-    } else {
-      stop("axes must be provided. Can't be guessed for 3D or 4D data", 
-           call. = FALSE)
-    }
-  }
-  
-  # axes may be string e.g. "tczyx"
-  if (is.character(axes) && length(axes) == 1L) 
-    axes <- strsplit(axes, "", fixed = TRUE)[[1]]
-  
-  if (!is.null(ndim) && length(axes) != ndim) {
-    stop(
-      sprintf("axes length (%d) must match number of dimensions (%d)", 
-              length(axes), ndim),
-      call. = FALSE
-    )
-  }
-  
-  axes
 }
 
 .get_scale_chunk_dim <- function(chunk_dim, dim){

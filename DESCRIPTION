@@ -1,7 +1,7 @@
 Package: OMERarr
 Type: Package
 Title: Reading, writing and validating OME-Zarr (meta)data
-Version: 0.99.1
+Version: 0.99.2
 Date: 2026-01-03
 Authors@R: 
   person("Artur", "Manukyan",
@@ -20,6 +20,7 @@ Imports:
   S4Vectors,
   Rarr,
   DelayedArray,
+  ZarrArray,
   cli,
   utils
 Suggests: 
@@ -28,3 +29,5 @@ Suggests:
   ggplot2,
   BiocFileCache,
   BiocStyle
+Remotes:
+  Bioconductor/ZarrArray

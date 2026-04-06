@@ -67,6 +67,10 @@ jobs:
       # All Other dependencies
       - name: Install dependencies
         run: |
+          ## TEMP REMOVE LATER:
+          ## For now install Rarr from github since ZarrArray needs >= 1.11.33
+          remotes::install_github("Huber-group-EMBL/Rarr")
+          
           ## Try installing the package dependencies in steps. First the local
           ## dependencies, then any remaining dependencies to avoid the
           ## issues described at

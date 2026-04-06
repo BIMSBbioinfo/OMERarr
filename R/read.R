@@ -69,6 +69,7 @@ setMethod("meta", signature = "OMEZarrArray", function(object) meta(object@meta)
 #' 
 #' @importFrom S4Vectors new2
 #' @importFrom Rarr read_zarr_array
+#' @importFrom ZarrArray ZarrArray
 #' @export
 #' @return An OMEZarrArray object
 read_image <- function(group){
@@ -79,7 +80,7 @@ read_image <- function(group){
   
   # read levels
   levels <- lapply(datasets(meta) , function(dataset){
-    Rarr::ZarrArray(
+    ZarrArray::ZarrArray(
       zarr_array_path = file.path(group, dataset)
     )
   })

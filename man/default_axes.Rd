@@ -12,7 +12,7 @@ An object of class \code{list} of length 5.
 .DEFAULT_AXES
 }
 \description{
-Default axes for OME-NGFF files
+Default axes and their OME-NGFF metadata
 }
 \examples{
 x <- file.path("extdata", "blobs.zarr")

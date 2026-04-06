@@ -3,13 +3,6 @@
 #' @title Default axes for OME-NGFF files
 #' 
 #' @description Default axes and their OME-NGFF metadata
-#'
-#' @return NULL
-#'
-#' @examples
-#' x <- file.path("extdata", "blobs.zarr")
-#' x <- system.file(x, package="SpatialData")
-#' (x <- readSpatialData(x))
 .DEFAULT_AXES <- list(
   list(name = "t", type = "time", unit = "millisecond"),
   list(name = "c", type = "channel"),

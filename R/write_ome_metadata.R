@@ -1,4 +1,3 @@
-#' @importFrom jsonlite fromJSON toJSON 
 write_ome_metadata <- function(group, 
                                image,
                                name = "",
@@ -55,7 +54,6 @@ write_ome_metadata <- function(group,
               )
   
   # update json list
-  # meta <- fromJSON(toJSON(meta, auto_unbox = TRUE), simplifyVector = TRUE)
   Rarr::write_zarr_attributes(zarr_path = group, 
                               new.zattrs = meta)
 }

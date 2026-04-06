@@ -14,9 +14,4 @@ An object of class \code{list} of length 5.
 \description{
 Default axes and their OME-NGFF metadata
 }
-\examples{
-x <- file.path("extdata", "blobs.zarr")
-x <- system.file(x, package="SpatialData")
-(x <- readSpatialData(x))
-}
 \keyword{datasets}

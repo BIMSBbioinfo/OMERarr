@@ -81,7 +81,7 @@ read_image <- function(group){
   # read levels
   levels <- lapply(datasets(meta) , function(dataset){
     ZarrArray::ZarrArray(
-      zarr_array_path = file.path(group, dataset)
+      zarr_path = file.path(group, dataset)
     )
   })
   

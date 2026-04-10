@@ -23,5 +23,5 @@ setMethod("meta",
 setMethod("datasets", 
           "OMEZarrMeta", 
           function(object) {
-            meta(object)$multiscales$datasets[[1]]$path
+            meta(object)$multiscales[[1]]$datasets[[1]]$path
           })

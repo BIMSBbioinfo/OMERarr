@@ -11,7 +11,7 @@ read_ome_metadata <- function(group, s3_client = NULL) {
 #' @noRd
 .parse_ome_zarr_version <- function(x) {
   if (!is.null(ms <- x$multiscales)) 
-    return(ms$version)
+    return(ms[[1]]$version)
   return(NA_character_)
 }
 
